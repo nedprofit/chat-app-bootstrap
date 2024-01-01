@@ -1,24 +1,47 @@
-# README
+# Chat app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Онлайн-чат через turbo-stream между пользователями системы с поддержкой как приватных комнат, так и публичных.
+В качестве примера разработки без Stimulus, он осознанно не используетя.
 
-Things you may want to cover:
+## Технологический Стек
 
-* Ruby version
+- Ruby on Rails
+- PostgreSQL
+- Redis
+- Bootstrap
+- Docker
 
-* System dependencies
+## Установка и Запуск
 
-* Configuration
+### Требования
 
-* Database creation
+Перед началом убедитесь, что у вас установлены:
 
-* Database initialization
+- Docker
+- Docker Compose
 
-* How to run the test suite
+### Клонирование Репозитория
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+git clone <ссылка_на_репозиторий>
+cd <имя_репозитория>
+```
 
-* Deployment instructions
+### Сборка и Запуск Контейнеров
+Собираем и запускаем все необходимые контейнеры для работы приложения.
 
-* ...
+```bash
+docker-compose up --build
+```
+
+Используются порты `4000` для Rails и `6380` для Redis.
+
+**Примечание:** открывать сайт следует по адресу `http://127.0.0.1:4000/`. Https не поддерживается. 
+
+### Запуск тестов
+
+Приложение покрыто RSpec и Cucumber тестами. Для запуска: 
+
+```bash
+docker-compose run --rm test
+```
