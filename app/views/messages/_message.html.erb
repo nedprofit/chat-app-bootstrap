@@ -1,0 +1,19 @@
+<% message ||= local_assigns[:message] %>
+
+<% if local_assigns[:broadcast].present? %>
+  <%= turbo_frame_tag message, src: room_message_path(message.room, message) %>
+<% else %>
+  <%= turbo_frame_tag message do %>
+    <div class="d-flex justify-content-<%= message.user == user ? "end" : "start" %> mt-2">
+      <div class="card <%= message.user == user ? "bg-primary" : "bg-light" %>">
+        <div class="card-body <%="text-white" if message.user == user %>">
+          <h6 class="card-title"><%= message.user == user ? "You" : message.user.email %>:</h6>
+          <h6 class="card-subtitle"><%= message.created_at.strftime("%I:%M %p") %></h6>
+          <%= message.content %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+

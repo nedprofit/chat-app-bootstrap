@@ -1,0 +1,9 @@
+<div class="d-flex justify-content-end mt-2">
+  <div class="card bg-primary text-white">
+    <div class="card-body">
+      <h6 class="card-title">You</h6>
+      <h6 class="card-subtitle"><%= @message.created_at.strftime("%I:%M %p") %></h6>
+      <%= @message.content %>
+    </div>
+  </div>
+</div>  

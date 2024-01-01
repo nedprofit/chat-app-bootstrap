@@ -1,14 +1,10 @@
 <div class="container mt-3">
   <h3><%= @room.name %></h3>
-  <div id="messages" style="height: 400px; overflow-y: scroll;">
-    <% @room.messages.each do |message| %>
-      <div class="card mt-2">
-        <div class="card-body">
-          <strong><%= message.user.email %>:</strong>
-          <%= message.content %>
-        </div>
-      </div>
-    <% end %>
+
+  <%= turbo_stream_from "chat_#{@room.id}" %>
+
+  <div id="messages_chat_<%= @room.id %>" style="height: 400px; overflow-y: scroll;">
+    <%= render partial: "messages/message", collection: @room.messages, as: :message, locals: { user: current_user } %>
   </div>
 
   <%= form_with(model: [@room, Message.new]) do |form| %>
@@ -20,7 +16,6 @@
 </div>
 
 <script>
-    // Прокрутка к последнему сообщению
-    var messages = document.getElementById('messages');
+    var messages = document.getElementById('messages_chat_<%= @room.id %>');
     messages.scrollTop = messages.scrollHeight;
 </script>
