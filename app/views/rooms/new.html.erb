@@ -1,0 +1,10 @@
+<div class="container mt-3">
+  <h2>Create a New Chat Room</h2>
+  <%= form_with(model: @room, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :name, 'Room Name' %>
+      <%= form.text_field :name, class: 'form-control', placeholder: 'Enter room name' %>
+    </div>
+    <%= form.submit 'Create Room', class: 'btn btn-primary' %>
+  <% end %>
+</div>
