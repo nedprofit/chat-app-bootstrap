@@ -7,6 +7,7 @@ require 'database_cleaner'
 require 'cucumber/rails'
 
 ActionController::Base.allow_rescue = false
+DatabaseCleaner.allow_remote_database_url = true
 
 # Настройка DatabaseCleaner перед каждым тестом
 Before do
