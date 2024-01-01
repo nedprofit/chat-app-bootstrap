@@ -1,7 +1,25 @@
 <div class="container mt-3">
-  <h2>Chat Rooms</h2>
+  <% User.where.not(id: current_user.id).each do |user| %>
+    <%= user.email %>
+    <%= link_to 'Создать чат', new_room_path(participant_id: user.id) %><br>
+  <% end %>
+</div>
+
+<div class="container mt-3">
+  <h2>Private Chat Rooms</h2>
   <div class="list-group">
-    <% @rooms.each do |room| %>
+    <% @private_rooms.each do |room| %>
+      <a href="<%= room_path(room) %>" class="list-group-item list-group-item-action">
+        <%= room.name %>
+      </a>
+    <% end %>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <h2>Public Chat Rooms</h2>
+  <div class="list-group">
+    <% @public_rooms.each do |room| %>
       <a href="<%= room_path(room) %>" class="list-group-item list-group-item-action">
         <%= room.name %>
       </a>

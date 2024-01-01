@@ -8,7 +8,6 @@
       <div class="card <%= message.user == user ? "bg-primary" : "bg-light" %>">
         <div class="card-body <%="text-white" if message.user == user %>">
           <h6 class="card-title"><%= message.user == user ? "You" : message.user.email %>:</h6>
-          <h6 class="card-subtitle"><%= message.created_at.strftime("%I:%M %p") %></h6>
           <%= message.content %>
         </div>
       </div>

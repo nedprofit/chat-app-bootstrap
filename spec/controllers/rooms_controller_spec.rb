@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe RoomsController, type: :controller do
   let(:user) { create(:user) }
-  let(:room) { create(:room) }
-  let(:valid_attributes) { { name: 'Chat Room' } }
+  let(:valid_attributes) { { name: 'Chat Room', private: false } }
   let(:invalid_attributes) { { name: '' } }
+  let(:valid_private_attributes) { { name: 'Private Chat Room', private: true, participant_id: user.id } }
 
   before do
     sign_in user
@@ -35,9 +35,15 @@ RSpec.describe RoomsController, type: :controller do
 
   describe '#create' do
     context 'with valid params' do
-      it 'creates a new Room' do
+      it 'creates a new public Room' do
         expect {
           post :create, params: { room: valid_attributes }
+        }.to change(Room, :count).by(1)
+      end
+
+      it 'creates a new private Room' do
+        expect {
+          post :create, params: { room: valid_private_attributes }
         }.to change(Room, :count).by(1)
       end
 

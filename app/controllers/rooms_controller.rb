@@ -1,23 +1,27 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show]
 
-  # GET /rooms
   def index
-    @rooms = Room.all
+    @private_rooms = Room.joins(:room_participations).where(room_participations: { user_id: current_user.id }, private: true)
+    @public_rooms = Room.where(private: false)
   end
 
-  # GET /rooms/1
   def show
   end
 
-  # GET /rooms/new
   def new
     @room = Room.new
   end
 
-  # POST /rooms
   def create
-    @room = Room.new(room_params)
+    @room = Room.new(room_params.except(:participant_id))
+    @room.participants << current_user
+
+    if @room.private_room? && params[:room][:participant_id].present?
+      participant = User.find(params[:room][:participant_id])
+      @room.participants << participant if participant
+    end
+
     if @room.save
       redirect_to @room, notice: 'Room was successfully created.'
     else
@@ -31,6 +35,6 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name)
+    params.require(:room).permit(:name, :private, :participant_id)
   end
 end
