@@ -23,8 +23,8 @@
 ### Клонирование Репозитория
 
 ```bash
-git clone <ссылка_на_репозиторий>
-cd <имя_репозитория>
+git clone https://github.com/nedprofit/chat-app-bootstrap.git
+cd chat-app-bootstrap
 ```
 
 ### Сборка и Запуск Контейнеров
